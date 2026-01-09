@@ -3,6 +3,8 @@ from dotenv import load_dotenv
 from llama_index.llms.ollama import Ollama
 from llama_index.embeddings.ollama import OllamaEmbedding
 from llama_index.core import Settings
+from qdrant_client import QdrantClient
+from llama_index.vector_stores.qdrant import QdrantVectorStore
 
 load_dotenv()
 
@@ -27,6 +29,18 @@ def configure_settings():
 
     Settings.chunk_size = 512
     Settings.chunk_overlap = 50
+
+def get_vector_store() -> QdrantVectorStore:
+    """
+    Utility function to initialize the Qdrant Vector Store.
+    Good Practice: Centralized connection logic (DRY principle).
+    """
+    client = QdrantClient(url=os.getenv("QDRANT_URL"))
+    
+    return QdrantVectorStore(
+        collection_name=os.getenv("COLLECTION_NAME"), 
+        client=client
+    )
 
 if __name__ == "__main__":
     print("🔄 Starting configuration...")

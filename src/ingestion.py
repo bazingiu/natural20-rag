@@ -7,7 +7,7 @@ from llama_index.core import (
 from llama_index.vector_stores.qdrant import QdrantVectorStore
 from qdrant_client import QdrantClient
 
-from config import configure_settings
+from config import configure_settings, get_vector_store
 
 def run_ingestion(data_path: str):
     """
@@ -17,14 +17,7 @@ def run_ingestion(data_path: str):
     configure_settings()
     print(f"📂 Loading documents from: {data_path}")
 
-    # 2. Connect to Qdrant
-    client = QdrantClient(url=os.getenv("QDRANT_URL"))
-    
-    # Create a 'Vector Store'
-    vector_store = QdrantVectorStore(
-        collection_name=os.getenv("COLLECTION_NAME"), 
-        client=client
-    )
+    vector_store = get_vector_store()
     
     # Storage Context is a container that tells LlamaIndex where to store the data
     storage_context = StorageContext.from_defaults(vector_store=vector_store)
