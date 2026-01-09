@@ -27,3 +27,6 @@ data/*.pdf
 # --- System ---
 .DS_Store
 Thumbs.db
+
+# --- AI Agent Instructions (Local only) ---
+.github/copilot-instructions.md
