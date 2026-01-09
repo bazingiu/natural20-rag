@@ -1,5 +1,29 @@
+# --- Python ---
 .venv/
 __pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints/
+
+# --- Environment & Secrets ---
 .env
-data/*.pdf
+*.local
+
+# --- Data & Database (Local Persistence) ---
 qdrant_storage/
+ollama_data/
+
+# Exclude original PDF files
+data/*.pdf
+
+# --- Docker ---
+.docker/
+*.log
+
+# --- IDE ---
+.vscode/
+.idea/
+
+# --- System ---
+.DS_Store
+Thumbs.db
