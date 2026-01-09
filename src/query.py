@@ -21,10 +21,6 @@ def main():
         response = query_engine.query(query)
         
         print(f"\n📜 ANSWER:\n{response}")
-        print("\n📚 SOURCES:")
-        for i, node in enumerate(response.source_nodes, 1):
-            metadata = node.node.metadata
-            print(f"[{i}] {metadata.get('file_name')} | Score: {node.score:.2f}")
 
 if __name__ == "__main__":
     main()
