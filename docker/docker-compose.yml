@@ -1,3 +1,4 @@
+name: natural20_stack
 services:
   # --- VECTOR DATABASE ---
   qdrant:
