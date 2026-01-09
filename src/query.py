@@ -32,3 +32,16 @@ if __name__ == "__main__":
         response = query_engine.query(query)
         
         print(f"\n📜 ANSWER:\n{response}")
+
+        print("\n📚 SOURCES USED:")
+        for i, node in enumerate(response.source_nodes, 1):
+            # Retrieve the score (relevance) and the text content
+            score = node.score
+            text = node.node.get_content()
+            # Retrieve metadata (like page number or file name if available)
+            metadata = node.node.metadata
+            
+            print(f"\n--- Source {i} (Relevance: {score:.2f}) ---")
+            print(f"File: {metadata.get('file_name', 'Unknown')}")
+            print(f"Content: {text[:200]}...") 
+            print("-" * 30)
