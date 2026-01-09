@@ -31,7 +31,7 @@ services:
 
   # --- OBSERVABILITY (Metrics & Tracing) ---
   phoenix:
-    image: arize-phoenix:latest
+    image: arizephoenix/phoenix:latest
     container_name: natural20_phoenix
     ports:
       - "6006:6006"
