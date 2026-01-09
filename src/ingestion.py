@@ -4,8 +4,6 @@ from llama_index.core import (
     VectorStoreIndex, 
     SimpleDirectoryReader
 )
-from llama_index.vector_stores.qdrant import QdrantVectorStore
-from qdrant_client import QdrantClient
 
 from config import configure_settings, get_vector_store
 
