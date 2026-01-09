@@ -6,6 +6,8 @@ from llama_index.core import Settings
 from qdrant_client import QdrantClient
 from llama_index.vector_stores.qdrant import QdrantVectorStore
 
+from llama_index.core import set_global_handler
+
 load_dotenv()
 
 def configure_settings():
@@ -29,6 +31,8 @@ def configure_settings():
 
     Settings.chunk_size = 512
     Settings.chunk_overlap = 50
+
+    set_global_handler("arize_phoenix")
 
 def get_vector_store() -> QdrantVectorStore:
     """
