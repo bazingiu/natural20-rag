@@ -1,44 +1,30 @@
 import os
-from llama_index.core import (
-    StorageContext, 
-    VectorStoreIndex, 
-    SimpleDirectoryReader
-)
-
+from llama_index.core import StorageContext, VectorStoreIndex, SimpleDirectoryReader
 from config import configure_settings, get_vector_store
 
 def run_ingestion(data_path: str):
-    """
-    Main pipeline to load PDFs and index them into Qdrant.
-    """
-    # 1. Initialize our global settings (Ollama, Chunk size, etc.)
+    """Loads PDFs and indexes them into Qdrant."""
     configure_settings()
-    print(f"📂 Loading documents from: {data_path}")
-
-    vector_store = get_vector_store()
     
-    # Storage Context is a container that tells LlamaIndex where to store the data
+    vector_store = get_vector_store()
     storage_context = StorageContext.from_defaults(vector_store=vector_store)
 
-    # 3. Load the actual PDF files
+    print(f"📂 Reading files from {data_path}...")
     documents = SimpleDirectoryReader(data_path).load_data()
     
-    # 4. Build the Index
-    print("🧠 Transforming text into vectors and storing them in Qdrant...")
+    print("🧠 Creating embeddings and storing in Qdrant...")
     index = VectorStoreIndex.from_documents(
         documents, 
         storage_context=storage_context,
         show_progress=True
     )
     
-    print("✅ Ingestion complete! Your D&D manual is now indexed.")
+    print("✅ Ingestion complete.")
     return index
 
 if __name__ == "__main__":
-    # Ensure the 'data' directory exists and contains your PDF
     DATA_DIR = "./data"
-    
-    if not os.path.exists(DATA_DIR) or not os.listdir(DATA_DIR):
-        print(f"❌ Error: Please put your D&D PDF in the '{DATA_DIR}' folder.")
-    else:
+    if os.path.exists(DATA_DIR) and os.listdir(DATA_DIR):
         run_ingestion(DATA_DIR)
+    else:
+        print(f"❌ Error: {DATA_DIR} is empty or missing.")
