@@ -13,7 +13,7 @@ services:
       - natural20_net
     restart: unless-stopped
 
-  # --- LOCAL LLM ENGINE ---
+# --- LOCAL LLM ENGINE ---
   ollama:
     image: ollama/ollama:latest
     container_name: natural20_ollama
@@ -24,6 +24,15 @@ services:
     networks:
       - natural20_net
     restart: unless-stopped
+    # --- GPU CONFIGURATION ---
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    # -----------------------
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
       interval: 30s
