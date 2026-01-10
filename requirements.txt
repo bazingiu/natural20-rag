@@ -3,5 +3,7 @@ llama-index-llms-ollama
 llama-index-embeddings-ollama
 llama-index-vector-stores-qdrant
 llama-index-readers-file
+llama-index-callbacks-arize-phoenix
+arize-phoenix
 qdrant-client
 python-dotenv
